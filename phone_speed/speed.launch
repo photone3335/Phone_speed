@@ -1,0 +1,12 @@
+<launch>  
+  <node name="phone_speed" pkg="phone_speed_node" type="speed" output="screen"/>
+  <node pkg="robot_localization" type="ekf_localization_node" name="ekf_se" clear_params="true" output="screen">
+    <rosparam command="load" file="$(find phone_speed_node)config.yaml" />
+
+    <!--  Placeholder for output topic remapping
+    <remap from="odometry/filtered" to=""/>
+    <remap from="accel/filtered" to=""/>
+    -->
+
+  </node>
+</launch>

@@ -1,0 +1,20 @@
+<launch>  
+  <node name="phone_speed" pkg="phone_speed_node" type="speed" output="screen"/>
+  <node name="gps_conv" pkg="gps_common" type="utm_odometry_node">
+    <remap from="odom" to="gps_meas"/>
+    <remap from="fix" to="/android/fix" />
+    <param name="rot_covariance" value="99999" />
+  </node>
+  <node pkg="robot_pose_ekf" type="robot_pose_ekf" name="robot_pose_ekf" output="screen">
+    <param name="output_frame" value="odom"/>
+    <param name="freq" value="10.0"/>
+    <param name="sensor_timeout" value="1.0"/>
+    <param name="odom_used" value="false"/>
+    <param name="imu_used" value="true"/>
+    <param name="vo_used" value="true"/>
+    <param name="debug" value="false"/>
+    <param name="self_diagnose" value="false"/>
+    
+     <remap from="vo" to="gps_meas"/>
+  </node>
+</launch>
